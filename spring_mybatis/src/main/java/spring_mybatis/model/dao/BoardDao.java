@@ -16,8 +16,11 @@ public interface BoardDao {
 	// Board 와 함께 board의 작성자 member의 정보까지 조회.
 	Board selectDetail(int articleNo);
 
-	Map<String, Object> selectLaw (Map<String,Object> map);
+	Map<String, Object> selectLaw(Map<String, Object> map);
+
 	List<Board> search();
+
+	List<Board> searchIf(Map<String, Object> condition);
 
 	int insert(Board board);
 

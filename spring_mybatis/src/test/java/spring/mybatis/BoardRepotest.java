@@ -115,4 +115,16 @@ public class BoardRepotest {
 		assertEquals(board.get("user_id"), "admin");
 	}
 
+	@Test
+	public void ifTest() {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("articleNo", 1);
+		List<Board> list = dao.searchIf(condition);
+		System.out.println(list);
+
+		condition.clear();
+		condition.put("userId", "ssafy");
+		list = dao.searchIf(condition);
+		System.out.println(list);
+	}
 }
