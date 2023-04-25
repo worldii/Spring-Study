@@ -28,7 +28,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	// 매서드의 선언부만 보면은 충분히 유추할 수 있기 때문에 이를 굳이 쓸 필요가 없다.
 	@Override
-	public int joinMember(Member memberDto) throws SQLException {
+	public int joinMember(Member memberDto)   {
 		// TODO Auto-generated method stub
 //		try (SqlSession session = Factory.openSession()) {
 		int result = session.insert(NAMESPACE + "joinMember", memberDto);
@@ -39,13 +39,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Member> listMember() throws SQLException {
+	public List<Member> listMember()   {
 		// TODO Auto-generated method stub
 		return session.selectList(NAMESPACE + "listMember");
 	}
 
 	@Override
-	public Member select(String memberId) throws SQLException {
+	public Member select(String memberId)   {
 		// TODO Auto-generated method stub
 		return session.selectOne(NAMESPACE + "select", memberId);
 

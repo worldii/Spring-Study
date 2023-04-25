@@ -8,18 +8,22 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
+
+import spring_mybatis.model.service.MemberService;
+
 import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 @PropertySource("classpath:dbinfo.properties")
 // compoenent scan 하여야 함
-//@ComponentScan(basePackageClasses = MemberDao.class)
+@ComponentScan(basePackageClasses = MemberService.class)
 @MapperScan(basePackages = { "spring_mybatis.model.dao" })
 public class AppConfig {
 

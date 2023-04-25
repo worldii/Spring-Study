@@ -22,6 +22,10 @@ public interface BoardDao {
 
 	List<Board> searchIf(Map<String, Object> condition);
 
+	List<Board> searchTrim(Map<String, Object> condition);
+
+	List<Board> under(int articleNo);
+
 	int insert(Board board);
 
 	int update(Board board);

@@ -127,4 +127,16 @@ public class BoardRepotest {
 		list = dao.searchIf(condition);
 		System.out.println(list);
 	}
+
+	@Test
+	@DisplayName("trim test")
+	public void trimTest() {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("articleNo", 1);
+		List<Board> list = dao.searchTrim(condition);
+		condition.put("userId", "ssafy");
+		list = dao.searchTrim(condition);
+		System.out.println("hello" + list.size());
+	}
+
 }

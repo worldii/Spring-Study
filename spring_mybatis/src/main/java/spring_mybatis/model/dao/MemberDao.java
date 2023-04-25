@@ -11,11 +11,11 @@ import spring_mybatis.model.dto.Member;
 @Mapper
 public interface MemberDao {
 
-	int joinMember(Member memberDto) throws SQLException;
+	int joinMember(Member memberDto) ;
 
-	List<Member> listMember() throws SQLException;
+	List<Member> listMember()  ;
 
-	Member select(String memberId) throws SQLException;
+	Member select(String memberId)  ;
 	
 	Member selectDetail(String userId);
 }
