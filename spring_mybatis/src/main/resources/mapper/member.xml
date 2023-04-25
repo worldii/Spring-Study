@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring_mybatis.model.dao.MamberDaoImpl">
+	<!-- Member -> member 로 바뀜 -->
+	<insert id="joinMember" parameterType="member">
+		insert into members
+		(user_id, user_name, user_password, email_id, email_domain, join_date)
+		values
+		(#{userId}, #{userName}, #{userPwd}, #{emailId},
+		#{emailDomain},now())
+	</insert>
+
+
+	<!-- <select id="listMember" resultType="member"> select user_id as userId, 
+		user_name as userName, user_password as userPwd, email_id as emailId, email_domain 
+		as emainDomain, join_date as joinDate from members; </select> -->
+	<select id="listMember" resultType="member" resultMap="basicMap">
+		select
+		user_id ,
+		user_name ,
+		user_password , email_id ,
+		email_domain , join_date
+		from members;
+	</select>
+
+
+	<!-- user_id 기반으로 조회 -->
+	<select id="select" parameterType="string" resultType="member"
+		resultMap="basicMap">
+		select
+		user_id, user_name, user_password, email_id,
+		email_domain from
+		members
+		where user_id=#{userId}
+	</select>
+	<!-- 매핑 따라서 정해줌 alias 를 줄필요 가 없음 -->
+	<!-- 결과 매핑에 대한 룰 지정 -->
+	<resultMap type="member" id="basicMap">
+		<id column="user_id" property="userId" />
+		<result column="user_name" property="userName"></result>
+		<result column="user_password" property="userPwd"></result>
+		<result column="email_id" property="emailId"></result>
+		<result column="email_domain" property="emailDomain"></result>
+	</resultMap>
+</mapper>
