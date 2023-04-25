@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,13 @@ import org.springframework.beans.factory.annotation.Value;
 // compoenent scan 하여야 함
 @ComponentScan(basePackageClasses = MemberDao.class)
 public class AppConfig {
+
+	// @Bean 에서 파라미터가 빈이면 자동으로 injection
+	@Bean
+	public SqlSessionTemplate template(SqlSessionFactory sqlSessionFactory) {
+		return new SqlSessionTemplate(sqlSessionFactory);
+		// sqlSesssionFactory 자동으로 인젝션됨.
+	}
 
 	@Bean
 	public SqlSessionFactory factory(DataSource ds) throws Exception {

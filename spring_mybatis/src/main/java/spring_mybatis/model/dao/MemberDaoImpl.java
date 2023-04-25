@@ -3,8 +3,9 @@ package spring_mybatis.model.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+//import org.apache.ibatis.session.SqlSession;
+//import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,32 +17,33 @@ public class MemberDaoImpl implements MemberDao {
 	private final String NAMESPACE = "spring_mybatis.model.dao.MamberDaoImpl.";
 
 	@Autowired
-	SqlSessionFactory Factory;
+	SqlSessionTemplate session;
+
+	// factory 를 injection 받을 필요 없다.
+//	@Autowired
+//	SqlSessionFactory Factory;
 
 	@Override
 	public void joinMember(Member memberDto) throws SQLException {
 		// TODO Auto-generated method stub
-		try (SqlSession session = Factory.openSession()) {
-			session.insert(NAMESPACE + "joinMember", memberDto);
-			session.commit();
-		}
+//		try (SqlSession session = Factory.openSession()) {
+		session.insert(NAMESPACE + "joinMember", memberDto);
+		session.commit();
+		// }
 
 	}
 
 	@Override
 	public List<Member> listMember() throws SQLException {
 		// TODO Auto-generated method stub
-		try (SqlSession session = Factory.openSession()) {
-			return session.selectList(NAMESPACE + "listMember");
-		}
+		return session.selectList(NAMESPACE + "listMember");
 	}
 
 	@Override
 	public Member select(String memberId) throws SQLException {
 		// TODO Auto-generated method stub
-		try (SqlSession session = Factory.openSession()) {
-			return session.selectOne(NAMESPACE + "select", memberId);
-		}
+		return session.selectOne(NAMESPACE + "select", memberId);
+
 	}
 
 }
