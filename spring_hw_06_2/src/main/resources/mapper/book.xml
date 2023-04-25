@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
+<!-- 코드작성 -->
+
+<mapper namespace="com.ssafy.mybatis.model.dao.BookDao">
+    <insert id="insert" parameterType="book">
+        insert into book (isbn,title,author,price,content,img)
+        values (#{isbn},#{title},#{author},#{price},#{content},#{img}) ;
+    </insert>
+
+    <select id="select" parameterType="string" resultMap="book">
+        select isbn,
+        title,
+        author,price,
+        content,img
+        from book
+        where isbn =#{isbn};
+    </select>
+
+
+    <select id="selectAll" resultMap="book">
+        select isbn,
+        title,
+        author,price,
+        content,img
+        from book
+    </select>
+
+    <update id="update" parameterType="book">
+        update book
+        set isbn=#{isbn},title=#{title},author=#{author},price=#{price},content=#{content},img=#{img}
+        where isbn=#{isbn};
+    </update>
+
+    <delete id="delete" parameterType="string">
+        delete from book
+        where isbn = #{isbn};
+    </delete>
+
+
+    <resultMap type="book" id="book">
+        <id column="isbn" property="isbn"/>
+        <result column="title" property="title"/>
+        <result column="author" property="author"/>
+        <result column="price" property="price"/>
+        <result column="content" property="content"/>
+        <result column="img" property="img"/>
+    </resultMap>
+</mapper>
