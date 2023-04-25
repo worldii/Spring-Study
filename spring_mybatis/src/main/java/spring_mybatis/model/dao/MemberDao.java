@@ -16,4 +16,6 @@ public interface MemberDao {
 	List<Member> listMember() throws SQLException;
 
 	Member select(String memberId) throws SQLException;
+	
+	Member selectDetail(String userId);
 }

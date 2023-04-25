@@ -94,5 +94,12 @@ public class BoardRepotest {
 
 		/// then
 	}
+	
+	@Test
+	public void selectDeatio () {
+		Board board = dao.selectDetail(3);
+		assertEquals(board.getUserId(), "admin");
+
+	}
 
 }

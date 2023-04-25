@@ -51,4 +51,10 @@ public class MemberDaoImpl implements MemberDao {
 
 	}
 
+	@Override
+	public Member selectDetail(String userId) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NAMESPACE + "selectDetail", userId);
+	}
+
 }

@@ -17,7 +17,8 @@
 	<!-- <select id="listMember" resultType="member"> select user_id as userId, 
 		user_name as userName, user_password as userPwd, email_id as emailId, email_domain 
 		as emainDomain, join_date as joinDate from members; </select> -->
-	<select id="listMember" resultType="member" resultMap="basicMemberMap">
+	<select id="listMember" resultType="member"
+		resultMap="basicMemberMap">
 		select
 		user_id ,
 		user_name ,
@@ -44,5 +45,19 @@
 		<result column="user_password" property="userPwd"></result>
 		<result column="email_id" property="emailId"></result>
 		<result column="email_domain" property="emailDomain"></result>
+	</resultMap>
+
+
+	<select id="selectDetail" parameterType="string"
+		resultMap="detailMember">
+		select * from members m join board b using (user_id) where
+		m.user_id=#{userId}
+	</select>
+
+	<resultMap type="member" id="detailMember"
+		extends="basicMemberMap">
+		<!-- has many 관계 설정 -->
+		<collection property="boards" ofType="board"
+			resultMap="spring_mybatis.model.dao.BoardDao.basicMap"></collection>
 	</resultMap>
 </mapper>
