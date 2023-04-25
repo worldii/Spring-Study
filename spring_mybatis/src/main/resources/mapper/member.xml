@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--  name space 바뀜 -->
+<!-- name space 바뀜 : Interface 까지만 가기로 함 -->
 <mapper namespace="spring_mybatis.model.dao.MemberDao">
 	<!-- Member -> member 로 바뀜 -->
 	<insert id="joinMember" parameterType="member">
@@ -17,7 +17,7 @@
 	<!-- <select id="listMember" resultType="member"> select user_id as userId, 
 		user_name as userName, user_password as userPwd, email_id as emailId, email_domain 
 		as emainDomain, join_date as joinDate from members; </select> -->
-	<select id="listMember" resultType="member" resultMap="basicMap">
+	<select id="listMember" resultType="member" resultMap="basicMemberMap">
 		select
 		user_id ,
 		user_name ,
@@ -29,7 +29,7 @@
 
 	<!-- user_id 기반으로 조회 -->
 	<select id="select" parameterType="string" resultType="member"
-		resultMap="basicMap">
+		resultMap="basicMemberMap">
 		select
 		user_id, user_name, user_password, email_id,
 		email_domain from
@@ -38,7 +38,7 @@
 	</select>
 	<!-- 매핑 따라서 정해줌 alias 를 줄필요 가 없음 -->
 	<!-- 결과 매핑에 대한 룰 지정 -->
-	<resultMap type="member" id="basicMap">
+	<resultMap type="member" id="basicMemberMap">
 		<id column="user_id" property="userId" />
 		<result column="user_name" property="userName"></result>
 		<result column="user_password" property="userPwd"></result>

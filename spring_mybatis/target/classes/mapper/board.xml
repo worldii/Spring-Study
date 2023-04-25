@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring_mybatis.model.dao.BoardDao">
+	<!-- user_id 기반으로 조회 -->
+	<select id="select" parameterType="int" resultType="board"
+		resultMap="basicMap">
+		select
+		article_no, user_id, subject, content,
+		hit ,
+		register_time from
+		board
+		where article_no=#{articleNo}
+	</select>
+
+	<!-- 매핑 따라서 정해줌 alias 를 줄필요 가 없음 -->
+	<!-- 결과 매핑에 대한 룰 지정 -->
+	<resultMap type="board" id="basicMap">
+		<id column="article_no" property="articleNo" />
+		<result column="user_id" property="userId"></result>
+		<result column="subject" property="subject"></result>
+		<result column="content" property="content"></result>
+		<result column="hit" property="hit"></result>
+		<result column="register_time" property="registerTime"></result>
+	</resultMap>
+
+
+	<update id="update" parameterType="board">
+		update board
+		set subject
+		=
+		#{subject}, content = #{content}
+		where article_no = #{articleNo}
+	</update>
+
+	<select id="search" resultMap="basicMap">
+		select article_no, user_id,
+		subject, content, hit,register_time
+		from board
+	</select>
+
+
+	<insert id="insert" parameterType="board">
+		<selectKey order="AFTER" keyProperty="articleNo"
+			resultType="int">
+			select max(article_no) from board
+		</selectKey>
+		insert into board
+		(
+		user_id,
+		subject, content, hit, register_time)
+		values
+		( #{userId},
+		#{subject},
+		#{content},
+		#{hit},now())
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from board
+		where
+		article_no = #{articleNo}
+	</delete>
+
+	<resultMap type="board" id="boardDetail" extends="basicMap">
+		<!-- has one 의 관계 추가하기 -->
+		<association property="member" javaType="member"
+			resultMap="spring_mybatis.model.dao.MemberDao.basicMemberMap">
+		</association>
+	</resultMap>
+</mapper>

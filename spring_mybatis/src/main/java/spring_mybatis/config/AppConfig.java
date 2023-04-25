@@ -8,17 +8,12 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
-import org.springframework.transaction.annotation.Transactional;
-
-import spring_mybatis.model.dao.MemberDao;
-
 import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
@@ -61,7 +56,6 @@ public class AppConfig {
 		ds.setUrl(url);
 		ds.setUsername(userName);
 		ds.setPassword(password);
-
 		// 맨처음 다섯개만 만들어 놓는다.
 		ds.setInitialSize(5);
 		ds.setMaxTotal(10);

@@ -36,6 +36,7 @@ public class MemberRepoTest {
 
 	@Test
 	@Transactional
+	// TEST 에서는 백퍼센트 롤백
 	// transactional manager appconfig 에다가 해줘야 함. 
 	public void insertTest() throws SQLException {
 		// given

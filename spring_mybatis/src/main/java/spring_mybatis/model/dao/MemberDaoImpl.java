@@ -23,8 +23,8 @@ public class MemberDaoImpl implements MemberDao {
 	SqlSessionTemplate session;
 
 	// factory 를 injection 받을 필요 없다.
-//	@Autowired
-//	SqlSessionFactory Factory;
+	// @Autowired
+	// SqlSessionFactory Factory;
 
 	// 매서드의 선언부만 보면은 충분히 유추할 수 있기 때문에 이를 굳이 쓸 필요가 없다.
 	@Override
