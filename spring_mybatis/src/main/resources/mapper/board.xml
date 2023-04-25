@@ -25,6 +25,10 @@
 		<result column="register_time" property="registerTime"></result>
 	</resultMap>
 
+	<select id="selectLaw" parameterType="map" resultType="map">
+		select *
+		from board where article_no=#{articleNo}
+	</select>
 
 	<update id="update" parameterType="board">
 		update board
@@ -45,7 +49,8 @@
 		resultMap="boardDetail">
 		select b.article_no, b.user_id, b.subject, b.content, b.hit,
 		b.register_time, m.user_name
-		from board b join members m using (user_id)
+		from board b join members m using
+		(user_id)
 		where article_no= #{article_no}
 	</select>
 	<insert id="insert" parameterType="board">

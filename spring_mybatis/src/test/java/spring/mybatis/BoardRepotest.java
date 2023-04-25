@@ -3,7 +3,9 @@ package spring.mybatis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,12 +96,23 @@ public class BoardRepotest {
 
 		/// then
 	}
-	
+
 	@Test
-	public void selectDeatio () {
+	public void selectDeatio() {
 		Board board = dao.selectDetail(3);
 		assertEquals(board.getUserId(), "admin");
 
+	}
+
+	@Test
+	public void selectLawType() {
+		int articleNo = 1;
+		Map<String, Object> condition = new HashMap<>();
+		condition.put("articleNo", articleNo);
+
+		Map<String, Object> board = dao.selectLaw(condition);
+
+		assertEquals(board.get("user_id"), "admin");
 	}
 
 }
