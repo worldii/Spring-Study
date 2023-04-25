@@ -18,6 +18,6 @@ public class Member {
 	private String emailId;
 	private String emailDomain;
 	private String joinDate;
-	
+
 	private List<Board> boards;
 }

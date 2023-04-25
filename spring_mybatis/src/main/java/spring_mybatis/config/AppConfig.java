@@ -15,6 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import spring_mybatis.model.service.MemberService;
 
@@ -25,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 // compoenent scan 하여야 함
 @ComponentScan(basePackageClasses = MemberService.class)
 @MapperScan(basePackages = { "spring_mybatis.model.dao" })
+@EnableTransactionManagement
 public class AppConfig {
 
 	@Bean
