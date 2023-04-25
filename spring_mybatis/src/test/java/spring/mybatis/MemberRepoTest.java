@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import spring_mybatis.config.AppConfig;
 import spring_mybatis.model.dao.MemberDao;
@@ -23,11 +24,28 @@ public class MemberRepoTest {
 
 	@Test
 	public void selectTest() throws SQLException {
+		System.out.println(memberDao.getClass().getName());
 		// given
 		String userId = "ssafy";
 		// when
 		Member member = memberDao.select(userId);
+		System.out.println(member.getUserName());
 		// then
 		assertEquals(member.getUserName(), "김싸피");
 	}
+
+	@Test
+	@Transactional
+	// transactional manager appconfig 에다가 해줘야 함. 
+	public void insertTest() throws SQLException {
+		// given
+		Member member = Member.builder().userId("testid2").userName("username").userPwd("1234")
+				.emailDomain("emailDomain").emailId("emailId").build();
+		// when
+		int result = memberDao.joinMember(member);
+		// then
+		assertEquals(result, 1);
+
+	}
+
 }

@@ -11,10 +11,13 @@ import org.springframework.stereotype.Repository;
 
 import spring_mybatis.model.dto.Member;
 
-@Repository
+// Repository 로 취급하지 않음. 
+// Spring은 관심 갖지 않음. -> bean 등록 안되어 있기 때문에.
+//@Repository
 public class MemberDaoImpl implements MemberDao {
 
-	private final String NAMESPACE = "spring_mybatis.model.dao.MamberDaoImpl.";
+	// NameSpace 패키지 기준으로 만듦
+	private final String NAMESPACE = "spring_mybatis.model.dao.MemberDaoImpl.";
 
 	@Autowired
 	SqlSessionTemplate session;
@@ -23,12 +26,14 @@ public class MemberDaoImpl implements MemberDao {
 //	@Autowired
 //	SqlSessionFactory Factory;
 
+	// 매서드의 선언부만 보면은 충분히 유추할 수 있기 때문에 이를 굳이 쓸 필요가 없다.
 	@Override
-	public void joinMember(Member memberDto) throws SQLException {
+	public int joinMember(Member memberDto) throws SQLException {
 		// TODO Auto-generated method stub
 //		try (SqlSession session = Factory.openSession()) {
-		session.insert(NAMESPACE + "joinMember", memberDto);
+		int result = session.insert(NAMESPACE + "joinMember", memberDto);
 		session.commit();
+		return result;
 		// }
 
 	}

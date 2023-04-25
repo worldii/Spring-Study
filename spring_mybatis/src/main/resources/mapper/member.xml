@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="spring_mybatis.model.dao.MamberDaoImpl">
+<!--  name space 바뀜 -->
+<mapper namespace="spring_mybatis.model.dao.MemberDao">
 	<!-- Member -> member 로 바뀜 -->
 	<insert id="joinMember" parameterType="member">
 		insert into members
