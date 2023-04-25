@@ -21,6 +21,9 @@ public class MemberServiceTest {
 	MemberService service;
 
 	// aop 가 관장하기 때문에 transactional 이 붙으면 impl 이 아니라 MemberService 여야 함.
+	// readonly -> 성능향상이 됨
+	
+	
 	@Test
 	@Transactional
 	public void serviceTest() {
