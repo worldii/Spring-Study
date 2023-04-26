@@ -13,12 +13,18 @@
 		select id,
 		name, countryCode,
 		district, population from city
-		where id=#{id}
+		limit 10
 	</select>
 
 	<insert id="insert" parameterType="city">
+
+		<selectKey order="AFTER" resultType="int" keyProperty="id">
+			select max(id) from city
+		</selectKey>
+
 		insert into city (name,
-		countryCode, district,population) values (#{name},
+		countryCode, district,population) values
+		(#{name},
 		#{countryCode},#{district},#{population});
 	</insert>
 
