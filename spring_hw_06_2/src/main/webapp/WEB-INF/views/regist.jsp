@@ -37,11 +37,69 @@
 				<textarea id="content" name="content" class="form-control" rows="3"></textarea>
 			</div>
 			<div>
-				<input type="submit" value="등록">
-				<input type="reset" value="취소">
+				<button id="registerSubmit" >등록</button>
+				<button id="reset" >취소</button>
 			</div>
 		</form>
-		<br> <a href="${root }/list">도서 목록</a>
+		<br> <button id="booklist">도서 목록</a>
+	</div>
+
+	<div id="container">
 	</div>
 </body>
+
+<script>
+
+document.querySelector("#registerSubmit").addEventListener("click", async function() {
+	let book = {
+			isbn: document.querySelector("#isbn").value,
+			author: document.querySelector("#title").value,
+			title: document.querySelector("#author").value,
+			price: document.querySelector("#price").value,
+			content: document.querySelector("#content").value,
+			img: document.querySelector("#file").value,
+			orgImg: "unknown",
+	}
+
+	let config = {
+			method: "post",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(book),
+	}
+
+	let response = await fetch("${root}/api/book/", config);
+	let json = await response.json();
+	alert(JSON.stringify(json) + "추가 완료");
+});
+
+document.querySelector("#reset").addEventListener("click", function() {
+	document.querySelector("#isbn").value = "",
+	document.querySelector("#title").value = "",
+	document.querySelector("#author").value = "",
+	document.querySelector("#price").value = "",
+	document.querySelector("#content").value = "",
+	document.querySelector("#file").value = "",
+});
+
+document.querySelector("#booklist").addEventListener("click", async function() {
+	let config = {
+			method: "get",
+	}
+
+	let response = await fetch("http://localhost:8080/rest/api/booklist", config);
+	let json = await response.json();
+	console.log(json);
+	let booklist = document.querySelector("#container");
+	booklist.innerHTML = "";
+
+	json.forEach(item => {
+		let html = `<tr><td onclick="detail(\${item.isbn})">\${item.isbn}</td> <td>\${item.author}</td> <td>\${item.title}</td> <td>\${item.price}</td> <td>\${item.content}</td> <td>\${item.img}</td> <td>\${item.orgImg}</td></tr>`;
+		booklist.innerHTML += html;
+	});
+
+});
+
+</script>
 </html>
