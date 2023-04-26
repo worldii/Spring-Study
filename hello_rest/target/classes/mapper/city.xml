@@ -13,7 +13,8 @@
 		select id,
 		name, countryCode,
 		district, population from city
-		limit 10
+        order by id desc
+		limit 10;
 	</select>
 
 	<insert id="insert" parameterType="city">
