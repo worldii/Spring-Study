@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.rest.model.mapper.CityMapper">
+
+	<select id="select" resultType="city" parameterType="int">
+		select ID,
+		Name, CountryCode, District, population from city
+		where ID=#{id}
+	</select>
+
+	<select id="search" resultType="city">
+		select id,
+		name, countryCode,
+		district, population from city
+        order by id desc
+		limit 10;
+	</select>
+
+	<insert id="insert" parameterType="city">
+
+		<selectKey order="AFTER" resultType="int" keyProperty="id">
+			select max(id) from city
+		</selectKey>
+
+		insert into city (name,
+		countryCode, district,population) values
+		(#{name},
+		#{countryCode},#{district},#{population});
+	</insert>
+
+
+	<update id="update" parameterType="city">
+		update city
+		set
+		name=#{name},countryCode=#{countryCode},district=#{district},population=#{population}
+		where id=#{id};
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from city
+		where
+		id=#{id};
+	</delete>
+
+
+	<resultMap type="city" id="city">
+		<id column="ID" property="id"></id>
+		<result column="Name" property="name"></result>
+		<result column="CountryCode" property="countryCode"></result>
+		<result column="District" property="district"></result>
+		<result column="population" property="population"></result>
+	</resultMap>
+</mapper>
