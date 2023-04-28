@@ -4,7 +4,6 @@
 <html>
 <head>
 <title>도움말</title>
-<link rel="stylesheet" href="/css/common.css" type="text/css" />
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/header.jsp"%>
