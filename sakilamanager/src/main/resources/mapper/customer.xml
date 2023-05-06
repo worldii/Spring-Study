@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.sakila.model.mapper.CustomerMapper">
+
+	<!-- result map -->
+	<resultMap type="customer" id="customerBasic">
+		<id column="customer_id" property="customerId" />
+		<result column="store_id" property="storeId" />
+		<result column="first_name" property="firstName" />
+		<result column="last_name" property="lastName" />
+		<result column="email" property="email" />
+		<result column="address_id" property="addressId" />
+		<result column="active" property="active" />
+		<result column="create_date" property="createDate" />
+		<result column="last_update" property="lastUpdate" />
+	</resultMap>
+	<!-- select 2개 작성 : test -->
+	<select id="select" parameterType="string"
+		resultMap="customerBasic">
+		select * from customer where email=#{email}
+	</select>
+
+	<select id="search" resultMap="customerBasic">
+		select * from customer
+		order by customer_id desc
+		limit 10
+	</select>
+
+</mapper>

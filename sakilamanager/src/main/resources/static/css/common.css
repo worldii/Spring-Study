@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+h1 {
+	color: blue;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+	border: 1px solid black;
+}
