@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.mybatis.model.dao.BoardDao">
+	<resultMap type="board" id="board">
+		<id column="article_no" property="articleNo"/>
+		<result column="user_id" property="userId"/>
+		<result column="subject" property="subject"/>
+		<result column="content" property="content"/>
+		<result column="hit" property="hit"/>
+		<result column="register_time" property="registerTime"/>
+	</resultMap>
+
+	<resultMap type="board" id="boardDetail" extends="board">
+		<association property="member" javaType="member" resultMap="com.ssafy.mybatis.model.dao.MemberDao.member"></association>
+	</resultMap>
+
+	<select id="selectByArticleNo" parameterType="int" resultMap="board">
+		select *
+		from board
+		where article_no = #{articleNo};
+	</select>
+
+	<select id="selectDetailByArticleNo" parameterType="int" resultMap="boardDetail">
+		select * from board b join members m using(user_id) where article_no = #{articleNo};
+	</select>
+
+	<select id="selectLaw" parameterType="map" resultType="map">
+		select *
+		from board
+		where article_no=#{articleNo};
+	</select>
+	
+	<select id="search" resultMap="board">
+		select *
+		from board;
+	</select>
+
+	<select id="searchIf" parameterType="map" resultMap="board">
+		select *
+		from board
+
+		<if test="userId!=null">
+			where user_id=#{userId};
+		</if>
+		<if test="articleNo!=null">
+			where article_no=#{articleNo};
+		</if>
+	</select>
+	
+	<insert id="insert" parameterType="board">
+		<selectKey order="AFTER" keyProperty="articleNo" resultType="int">
+			select max(article_no) from board
+		</selectKey>
+		insert into board(user_id,subject,content,hit)
+		values(#{userId},#{subject},#{content},0);
+	</insert>
+	
+	<update id="update" parameterType="board">
+		update board
+		set article_no=#{articleNo},subject=#{subject},content=#{content}
+		where article_no=#{articleNo};
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from board 
+		where article_no = #{articleNo};
+	</delete>
+
+	<select id="searchTrim" parameterType="map" resultType="map">
+		select *
+		from board
+		<trim prefixOverrides="and|or" prefix="where">
+			<if test="userId!=null">
+				and user_id=#{userId};
+			</if>
+			<if test="articleNo!=null">
+				and article_no=#{articleNo};
+			</if>
+		</trim>
+	</select>
+
+	<select id="under" parameterType="int">
+		select * from board
+		where aritcle_no &lt; #{articleNo};
+	</select>
+
+	<select id="pattern" parameterType="string">
+		select * from board
+		where subject like concat('%',#{userId},'%');
+	</select>
+
+</mapper>

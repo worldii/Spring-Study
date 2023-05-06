@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.mybatis.model.dao.MemberDao">
+	<resultMap type="member" id="member">
+		<id column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_password" property="userPwd"/>
+		<result column="email_id" property="emailId"/>
+		<result column="email_domain" property="emailDomain"/>
+	</resultMap>
+
+	<resultMap type="member" id="memberDetail" extends="member">
+		<collection property="boards" ofType="board" resultMap="com.ssafy.mybatis.model.dao.BoardDao.board"></collection>
+	</resultMap>
+
+	<select id="select" parameterType="string" resultMap="member">
+		select user_id,
+		 user_name,
+		 user_password, 
+		 email_id, 
+		 email_domain 
+		 from members 
+		 where user_id = #{userId};
+	</select>
+
+	<select id="selectDetail" parameterType="string" resultMap="memberDetail">
+		select *
+		from members m join board b using(user_id)
+		where m.user_id = #{userId};
+	</select>
+</mapper>
