@@ -14,10 +14,15 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.projectlombok:lombok:1.18.26'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'javax.inject:javax.inject:1'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.projectlombok:lombok'
+
 
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
